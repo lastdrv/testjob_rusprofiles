@@ -10,7 +10,7 @@ class RusprofileSpider(scrapy.Spider):
     def start_requests(self):
         urls = [
             'https://www.rusprofile.ru/codes/89220',
-            'https://www.rusprofile.ru/codes/429110',
+            'https://www.rusprofile.ru/codes/429110'
         ]
         for url in urls:
             yield scrapy.Request(url=url, callback=self.parse_main)

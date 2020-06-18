@@ -11,6 +11,17 @@
 
 from random import choice
 
+
+ITEM_PIPELINES = {'scrapy_mysql_pipeline.MySQLPipeline': 300}
+
+MYSQL_HOST = 'localhost'
+MYSQL_PORT = 3306
+MYSQL_USER = 'lastdrv'
+MYSQL_PASSWORD = '12345'
+MYSQL_DB = 'db_test'
+MYSQL_TABLE = 'tbl_test'
+MYSQL_UPSERT = True
+
 BOT_NAME = 'testjob'
 
 SPIDER_MODULES = ['testjob.spiders']
