@@ -9,6 +9,8 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+from random import choice
+
 BOT_NAME = 'testjob'
 
 SPIDER_MODULES = ['testjob.spiders']
@@ -16,7 +18,8 @@ NEWSPIDER_MODULE = 'testjob.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'testjob (+http://www.yourdomain.com)'
+#USER_AGENT = {'User-Agent': choice(open('list_user_agents.txt').read().split('\n'))}
+USER_AGENT = choice(open('list_user_agents.txt').read().split('\n'))
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
