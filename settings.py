@@ -27,6 +27,24 @@ BOT_NAME = 'testjob'
 SPIDER_MODULES = ['testjob.spiders']
 NEWSPIDER_MODULE = 'testjob.spiders'
 
+# Retry many times since proxies often fail
+RETRY_TIMES = 10
+# Retry on most error codes since proxies fail for different reasons
+RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
+
+# Proxy mode
+# 0 = Every requests have different proxy
+# 1 = Take only one proxy from the list and assign it to every requests
+# 2 = Put a custom proxy to use in the settings
+PROXY_MODE = 0
+
+DOWNLOADER_MIDDLEWARES = {
+    'scrapy.downloadermiddlewares.retry.RetryMiddleware': 500,
+    'scrapy_proxies.RandomProxy': 625,
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 750,
+}
+
+PROXY_LIST = 'sslproxies.txt'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = {'User-Agent': choice(open('list_user_agents.txt').read().split('\n'))}
