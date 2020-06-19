@@ -27,41 +27,18 @@ BOT_NAME = 'testjob'
 SPIDER_MODULES = ['testjob.spiders']
 NEWSPIDER_MODULE = 'testjob.spiders'
 
-RETRY_TIMES = 5
-# Retry on most error codes since proxies fail for different reasons
-RETRY_HTTP_CODES = [500, 503, 504, 400, 403, 404, 408]
+#ROTATING_PROXY_LIST = []
+ROTATING_PROXY_LIST_PATH = 'list_proxies.txt'
+ROTATING_PROXY_CLOSE_SPIDER = True
+ROTATING_PROXY_PAGE_RETRY_TIMES = 0
+ROTATING_PROXY_BACKOFF_BASE = 3000
 
 DOWNLOADER_MIDDLEWARES = {
-  'scrapy.downloadermiddlewares.retry.RetryMiddleware': 90,
-  'scrapy_proxies.RandomProxy': 100,
-  'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+    # ...
+    'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+    'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+    # ...
 }
-
-PROXY_SETTINGS = {
-  # Proxy list containing entries like
-  # http://host1:port
-  # http://username:password@host2:port
-  # http://host3:port
-  # ...
-  # if PROXY_SETTINGS[from_proxies_server] = True , proxy_list is server address (ref https://github.com/qiyeboy/IPProxyPool and https://github.com/awolfly9/IPProxyTool )
-  # Only support http(ref https://github.com/qiyeboy/IPProxyPool#%E5%8F%82%E6%95%B0)
-  # list : ['http://localhost:8000?protocol=0'],
-  'list':['list_proxies.txt'],
-
-  # disable proxy settings and  use real ip when all proxies are unusable
-  'use_real_when_empty':False,
-  'from_proxies_server':False,
-
-  # If proxy mode is 2 uncomment this sentence :
-  # 'custom_proxy': "http://host1:port",
-
-  # Proxy mode
-  # 0 = Every requests have different proxy
-  # 1 = Take only one proxy from the list and assign it to every requests
-  # 2 = Put a custom proxy to use in the settings
-  'mode':0
-}
-
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = {'User-Agent': choice(open('list_user_agents.txt').read().split('\n'))}
@@ -71,12 +48,12 @@ USER_AGENT = choice(open('list_user_agents.txt').read().split('\n'))
 ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-CONCURRENT_REQUESTS = 1
+CONCURRENT_REQUESTS = 5
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 5
+DOWNLOAD_DELAY = 10
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
