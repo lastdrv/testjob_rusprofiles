@@ -35,7 +35,7 @@ ROTATING_PROXY_BACKOFF_BASE = 3000
 
 BOT_NAME = 'testjob'
 
-SPIDER_MODULES = ['testjob.spiders']
-NEWSPIDER_MODULE = 'testjob.spiders'
+SPIDER_MODULES = ['spiders']
+NEWSPIDER_MODULE = 'spiders'
 
 ITEM_PIPELINES = {'scrapy_mysql_pipeline.MySQLPipeline': 300}
