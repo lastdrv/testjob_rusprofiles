@@ -39,7 +39,7 @@ class RusprofileSpider(scrapy.Spider):
             'okved': self.okved,
             'title': response.css('div.company-name::text').get().strip(),
             'ogrn': response.xpath('//*[@id="clip_ogrn"]/text()').get(),
-            'okpo': int(response.css('#clip_okpo::text').get()),
+            'okpo': response.css('#clip_okpo::text').get(),
             'status': response.css('div.company-status').attrib['class'].split()[-1],
             'regdate': ''.join(response.xpath('//*[@id="anketa"]/div[2]/div[1]/div[1]/div[2]/dl[1]/dd/text()').get().split('.')[::-1]),
             'moneys': moneys_test,
